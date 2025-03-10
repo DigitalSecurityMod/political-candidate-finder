@@ -14,11 +14,6 @@ def constructURL ():
     url += f"&address={ZIP_CODE}"
     return url
 
-#Send request to Google Civic API
-def sendRequest (url):
-    response = requests.get(url)
-    return response
-
 #Check response from Google Civic API
 def checkResponse (response):
     try:
@@ -35,7 +30,7 @@ def checkResponse (response):
 #Gets the representative data for the given zip code
 def getRepresentatives ():
     url = constructURL()
-    response = sendRequest(url)
+    response = requests.get(url) #send request to Google Civic API
     checkResponse(response)
     return response.json()
 
@@ -48,8 +43,7 @@ def displayRepresentatives (data):
         party = official.get('party')
         if party == None:
             party = "Not Available"
-        print(f"Name: {name}, Party: {party}")
-        print("")
+        print(f"Name: {name}, Party: {party}\n")
 
 def main ():
     data = getRepresentatives()
