@@ -41,7 +41,17 @@ def getRepresentatives ():
 
 #Display the representative data
 def displayRepresentatives (data):
-    print(json.dumps(data, indent=4))
+    for official in data['officials']:
+        if official['name']:
+            name = official.get('name')
+        else:
+            name = "Name not available" 
+        if official['party']:
+            party = official.get('party')
+        else:
+            party = "Party not available"
+        print(f"Name: {name}, Party: {party}")
+        print("")
 
 def main ():
     data = getRepresentatives()
