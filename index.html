@@ -9,10 +9,20 @@
     <h1>Find Your Representatives</h1>
     <form id="zipcode-form">
         <label for="zipcode">Enter your zipcode:</label>
-        <input type="text" id="zipcode" name="zipcode">
+        <input 
+            type="text" 
+            id="zipcode" 
+            name="zipcode" 
+            pattern="[a-zA-Z0-9]{5}" 
+            minlength="5"
+            maxlength="5"
+            placeholder="01234" 
+            required
+            aria-invalid="false">
         <button type="submit">Find</button>
     </form>
     <div id="results">
         </div>
+    <script src="script.js"></script>
 </body>
 </html>
