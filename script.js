@@ -1,17 +1,15 @@
-//broken. needs api key from server
-const apiKey = 'abc123'; //replace
-
 //Zipcode form event listener
 document.getElementById("zipcode-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
     // Get the zipcode from the form
-    const zipcode = document.getElementById("zipcode").value;
+    //const zipcode = document.getElementById("zipcode").value;
 
     // Fetch and display the data from the Google Civic API
-    const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${zipcode}&key=${apiKey}`;
+    const url = "http://localhost:5000/representatives";
 
-    fetch(url)
+    fetch(url, {
+        method: "POST"})
         // Check if the response is OK, then return the JSON data
         .then(response => {
             if (!response.ok) {

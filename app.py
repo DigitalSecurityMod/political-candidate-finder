@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 import os
 
+#WARNING: Do not deploy to production with debug=True and CORS enabled
 app = Flask(__name__)
+CORS(app) #Cross-Origin Resource Sharing
 
 @app.route('/')
 def index():
@@ -38,10 +41,10 @@ def check_response (response):
 def get_representatives ():
     load_dotenv()
     API_KEY = os.getenv('GOOGLE_CIVIC_API_KEY')
-    url = construct_URL(API_KEY, request.form('zipcode'))
+    url = construct_URL(API_KEY, request.form['zipcode'])
     response = requests.get(url) #send request to Google Civic API
     check_response(response)
-    return response.json()
+    return response
 
 ##Display the representative data
 #def displayRepresentatives (data):
