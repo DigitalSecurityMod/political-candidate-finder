@@ -3,13 +3,20 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
     event.preventDefault();
 
     // Get the zipcode from the form
-    //const zipcode = document.getElementById("zipcode").value;
+    const zipcode = document.getElementById("zipcode").value;
 
     // Fetch and display the data from the Google Civic API
     const url = "http://localhost:5000/representatives";
 
     fetch(url, {
-        method: "POST"})
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded" // Important for form data
+        },
+        body: new URLSearchParams({
+            zip_code: zipcode // Send zipcode in the request body
+        })
+    })
         // Check if the response is OK, then return the JSON data
         .then(response => {
             if (!response.ok) {

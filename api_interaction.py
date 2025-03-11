@@ -1,3 +1,4 @@
+########## DEPRECATED: Replaced by app.py ##########
 import requests
 import json
 from dotenv import load_dotenv

@@ -14,7 +14,9 @@ def index():
 
 @app.route('/representatives', methods=['POST'])
 def api ():
-    data = jsonify(get_representatives())
+    zip_code = request.form['zip_code']
+    print(zip_code)
+    data = jsonify(get_representatives(zip_code).json())
     return data
 
 #Construct URL for Google Civic API
@@ -38,10 +40,10 @@ def check_response (response):
         return False
 
 #Gets the representative data for the given zip code
-def get_representatives ():
+def get_representatives (zip_code):
     load_dotenv()
     API_KEY = os.getenv('GOOGLE_CIVIC_API_KEY')
-    url = construct_URL(API_KEY, request.form['zipcode'])
+    url = construct_URL(API_KEY, zip_code)
     response = requests.get(url) #send request to Google Civic API
     check_response(response)
     return response
