@@ -2,6 +2,14 @@
 document.getElementById("zipcode-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = ""; // Clear previous results
+    
+    // Create a loading spinner
+    const loadingSpinner = document.createElement("div");
+    loadingSpinner.className = "loader";
+    resultsDiv.appendChild(loadingSpinner);
+    
     // Get the zipcode from the form
     const zipcode = document.getElementById("zipcode").value;
 
@@ -25,10 +33,44 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
             return response.json();
         })
 
-        //Get the officials from the data and build the table (if it doesn't exist)
+        //Get the officials from the data and build the table
         .then(data => {
             const officials = data.officials;
+            // Check if the officials array is empty
+            if (!officials || officials.length === 0) {
+                // If no officials are found, alert the user
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = ""; // Clear previous results
+                let noResultsMessage = document.createElement("p");
+                noResultsMessage.textContent = "No officials found for this zipcode.";
+                resultsDiv.appendChild(noResultsMessage);
+                return;
+            }
             
+            // Create a new table
+            let table = document.createElement("table");
+            table.id = "officials-table";
+            table.className = "officials-table";
+            
+            // Create the table header
+            const headerRow = document.createElement("tr");                    
+            const nameHeader = document.createElement("th");
+            const partyHeader = document.createElement("th");
+            nameHeader.textContent = "Name";
+            partyHeader.textContent = "Party";
+            headerRow.appendChild(nameHeader);
+            headerRow.appendChild(partyHeader);
+            
+            // Append the header row to the table
+            table.appendChild(headerRow);
+            
+            // Clear the loading spinner
+            resultsDiv.innerHTML = "";
+
+            // Add the table to the results div
+            resultsDiv.appendChild(table);
+            
+            // Add officials to the table
             for (let official of data.officials){
                 var name = official.name;
                 if (name == false){
@@ -38,24 +80,6 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
                 var party = official.party;
                 if (party == false) {
                     party = "Not Available"
-                };
-
-                // Find or create the table
-                let table = document.getElementById("officials-table");
-
-                if (!table) {
-                    // Clear the results div and create a table
-                    const resultsDiv = document.getElementById("results");
-                    resultsDiv.innerHTML = "";
-                    table = document.createElement("table");
-                    table.id = "officials-table";
-                    table.className = "officials-table";
-                    const headerRow = table.insertRow();
-                    const nameHeader = headerRow.insertCell(0);
-                    const partyHeader = headerRow.insertCell(1);
-                    nameHeader.textContent = "Name";
-                    partyHeader.textContent = "Party";
-                    resultsDiv.appendChild(table);
                 };
 
                 // Add the current official to the table
@@ -71,5 +95,4 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
         .catch(error => {
             console.error('Error fetching data:',error);
         });
-}
-);
+});

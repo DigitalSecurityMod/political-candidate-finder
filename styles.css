@@ -1,0 +1,115 @@
+header {
+    background-color: #2647ff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;  
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    font-family: 'roboto', sans-serif;
+}
+
+body {
+    background-color: #F9F9F9;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+}
+
+.loader {
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+    border-radius: 50%;
+    position: relative;
+    left: 48%;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+form {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1em;
+        font-weight: bold;
+    }
+    input{
+        width: 10%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: 'Roboto', sans-serif;
+    }
+    button {
+        background-color: #aab7ff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1em;
+        &:hover {
+            background-color: #2647ff;
+        }
+    }
+}
+
+p {
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-family: 'Roboto', sans-serif;
+    }
+    th {
+        background-color: #acacac;
+        color: black;
+        font-weight: bold !important;
+    }
+}
+
+footer {
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: .8em;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

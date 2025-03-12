@@ -22,8 +22,7 @@ def api ():
 #Construct URL for Google Civic API
 def construct_URL (api_key, zip_code):
     base_url = "https://www.googleapis.com/civicinfo/v2/representatives"
-    url = f"{base_url}?key={api_key}"
-    url += f"&address={zip_code}"
+    url = f"{base_url}?key={api_key}&address={zip_code}"
     return url
 
 #Check response from Google Civic API
