@@ -28,6 +28,10 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
         // Check if the response is OK, then return the JSON data
         .then(response => {
             if (!response.ok) {
+                let errorMessage = document.createElement("p");
+                errorMessage.textContent = `Error fetching data. Please try again. Status: ${response.status}`;
+                resultsDiv.innerHTML = ""; // Clear loading spinner
+                resultsDiv.appendChild(errorMessage);
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
@@ -93,6 +97,6 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
 
         // Catch any errors and log them to the console
         .catch(error => {
-            console.error('Error fetching data:',error);
+            console.error('Error:',error);
         });
 });

@@ -17,6 +17,8 @@ def api ():
     zip_code = request.form['zip_code']
     print(zip_code)
     data = jsonify(get_representatives(zip_code).json())
+    if data == None:
+        return "Error: Unable to provide data"
     return data
 
 #Construct URL for Google Civic API
@@ -42,6 +44,9 @@ def check_response (response):
 def get_representatives (zip_code):
     load_dotenv()
     API_KEY = os.getenv('GOOGLE_CIVIC_API_KEY')
+    if API_KEY == None:
+        print("Error: Unable to fetch API Key")
+        return
     url = construct_URL(API_KEY, zip_code)
     response = requests.get(url) #send request to Google Civic API
     check_response(response)
