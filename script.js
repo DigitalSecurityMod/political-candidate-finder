@@ -1,10 +1,10 @@
 //Zipcode form event listener
 document.getElementById("zipcode-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-
+    event.preventDefault(); // Prevent the form from submitting
+    
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = ""; // Clear previous results
-    
+
     // Create a loading spinner
     const loadingSpinner = document.createElement("div");
     loadingSpinner.className = "loader";
@@ -26,13 +26,21 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
         })
     })
         // Check if the response is OK, then return the JSON data
-        .then(response => {
+        .then(async response => {
             if (!response.ok) {
+                // Parse the error response and extract the error message
+                const errorData = await response.json();
                 let errorMessage = document.createElement("p");
-                errorMessage.textContent = `Error fetching data. Please try again. Status: ${response.status}`;
+                errorMessage.className = "error-message";
+                // Use the specific error message from the backend if available
+                if (errorData && errorData.error) {
+                    errorMessage.textContent = errorData.error;
+                } else {
+                    errorMessage.textContent = `Error fetching data. Please try again. Status: ${response.status}`;
+                }
                 resultsDiv.innerHTML = ""; // Clear loading spinner
                 resultsDiv.appendChild(errorMessage);
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
@@ -77,14 +85,10 @@ document.getElementById("zipcode-form").addEventListener("submit", function(even
             // Add officials to the table
             for (let official of data.officials){
                 var name = official.name;
-                if (name == false){
-                    name = "Not Available"
-                };
+                if (!name){name = "Not Available"};
 
                 var party = official.party;
-                if (party == false) {
-                    party = "Not Available"
-                };
+                if (!party){party = "Not Available"};
 
                 // Add the current official to the table
                 const row = table.insertRow();
