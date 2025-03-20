@@ -64,6 +64,3 @@ def get_representatives(zip_code):
         return None, error_message
     
     return response, None
-
-if __name__ == '__main__':
-    app.run(debug=True)
